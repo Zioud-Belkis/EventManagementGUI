@@ -1,0 +1,47 @@
+package eventManagementGUI;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import frame.EventManager;
+
+	public class DeleteEvents extends JFrame {
+		
+	    public DeleteEvents() {
+	    	
+	        setTitle("Delete Event");
+	        setSize(300, 150);
+	        setLayout(null);
+	        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	        setLocationRelativeTo(null);
+	        
+	        JLabel nameLabel = new JLabel("Enter Event name:");
+	        nameLabel.setBounds(20, 20, 80, 25);
+	        add(nameLabel);
+	        
+	        JTextField nameField = new JTextField();
+	        nameField.setBounds(100, 20, 150, 25);
+	        add(nameField);
+
+	        JButton deleteBtn = new JButton("Delete");
+	        deleteBtn.setBounds(100, 60, 100, 30);
+	        add(deleteBtn);
+
+	        deleteBtn.addActionListener(e -> {
+	        	
+	            String name = nameField.getText();
+	            if (EventManager.remove(name)) {
+	                JOptionPane.showMessageDialog(null, "Event deleted.");
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Event not found.");
+	            }
+	            
+	            dispose();
+	        });
+
+	        setVisible(true);
+	    }
+	}
