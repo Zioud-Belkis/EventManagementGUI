@@ -1,0 +1,80 @@
+
+package eventManagementGUI;
+
+    import javax.swing.*;
+	import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+	public class SearchEvents extends JFrame {
+		
+	    public SearchEvents() {
+	    	
+	        setTitle("Search Event");
+	        setSize(300, 180);
+	        setLayout(null);
+	        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	        setLocationRelativeTo(null);
+	        
+	        JLabel searchLabel = new JLabel("Search by :");
+	        searchLabel.setBounds(20, 20, 80, 25);
+	        add(searchLabel);
+	        
+	        JTextField searchField = new JTextField();
+	        searchField.setBounds(100, 20, 150, 25);
+	        add(searchField);
+
+	       JRadioButton nameRadioButton = new JRadioButton("Name");
+	       nameRadioButton.setBounds(30, 50, 100, 25);
+	       add(nameRadioButton);
+	       
+	       JRadioButton dateRadioButton = new JRadioButton("StartDate");
+	       dateRadioButton.setBounds(150, 50, 150, 25);
+	       add(dateRadioButton);
+	       
+	       ButtonGroup group = new ButtonGroup();
+	            group.add(nameRadioButton);
+	            group.add(dateRadioButton);
+	       
+	       JButton searchButton = new JButton("Search");
+	       searchButton.setBounds(110, 105, 100, 30);
+	       add(searchButton);
+	       
+	       searchButton.addActionListener(e -> {
+	    	   
+	    	   if(nameRadioButton.isSelected()) {
+	    		   String name = searchField.getText();
+	    		   Event event = EventManagement.search(name);
+	    		   
+	    		   if(event != null) {
+	    			   JOptionPane.showMessageDialog(null, event.toString());
+	    		   }else {
+	    			   JOptionPane.showMessageDialog(null, "No event found.");
+	    		       }
+	    		   
+	    		   }else if(dateRadioButton.isSelected()) {
+	    			   try {
+	    				   
+	    				LocalDateTime date = LocalDateTime.parse(searchField.getText());
+	    				DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	    				   
+	    				   Event event = EventManagement.searchDate(date);
+	    				   if(event != null) {
+	    					   JOptionPane.showMessageDialog(null, event.toString());
+	    				   }else {
+	    					   JOptionPane.showMessageDialog(null, "No event found.");
+	    				   }
+	    			   }catch(Exception ex) {
+	    				   JOptionPane.showMessageDialog(null, "Invalid date format.");
+	    			   }
+	    		   }else {
+	    			   JOptionPane.showMessageDialog(null, "Select a search method.");
+	    		   }
+	    		   dispose();
+	       
+	       });
+	        
+	        setVisible(true);  
+	    }
+ 
+}
