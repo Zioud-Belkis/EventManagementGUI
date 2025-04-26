@@ -1,0 +1,72 @@
+package eventManagementGUI;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EventManagement {
+
+	
+	private static  List<Event> events = new ArrayList<>();
+	
+	
+	public static void add(Event event) {
+		events.add(event);
+	}
+	
+	public static  boolean remove(String eventName) {
+		Event event = search(eventName);
+		if(event != null) {
+		  events.remove(event);
+			return true;
+		}
+		return false;
+	}	
+	
+	public static void displayAllEvents() {
+      for(Event event : events) {	  
+  		System.out.println(event.toString());
+      }	
+		}
+	
+	public static Event search(String name) {
+		for(Event event : events) {
+			if(event.eventName.equalsIgnoreCase(name)) {
+				return event;
+			}
+		}
+			System.out.println("not fouund");
+			
+		return null;
+	}
+		
+	public static Event searchDate(LocalDateTime startDateTima) {
+		
+		for(Event event : events) {
+			if(event.getStartDateTime().equals(startDateTima)) {
+				return event;
+			}
+		}
+		return null;
+	}
+
+	public static void saveEvents() {
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt",true))) {
+			for(Event event : events) {
+				writer.write(event.toString());
+				writer.newLine();
+			   }
+			
+			System.out.println("Events saved successfully");
+			
+			} catch(IOException nf) {
+				System.out.println("error");
+		  }
+	 }
+
+	
+	
+}
