@@ -1,0 +1,75 @@
+package eventManagementGUI;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class AddEvents extends JFrame {
+
+	public AddEvents() {
+		
+		  setTitle("Add Event");
+	      setSize(300, 300);
+	      setLayout(null);
+	      setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setLocationRelativeTo(null);
+	        
+	        JLabel nameLabel = new JLabel("Event Name:");
+	        nameLabel.setBounds(20, 60, 80, 25);
+	        add(nameLabel);
+	        
+	        JTextField nameField = new JTextField();
+	        nameField.setBounds(100, 60, 150, 25);
+	        add(nameField);
+
+	        JLabel startLabel = new JLabel("Start Date Time:");
+	        startLabel.setBounds(20, 100, 80, 25);
+	        add(startLabel);
+	        
+	        JTextField startField = new JTextField();
+	        startField.setBounds(100, 100, 150, 25);
+	        add(startField);
+
+	        JLabel endLabel = new JLabel("End Date Time:");
+	        endLabel.setBounds(20, 20, 80, 25);
+	        add(endLabel);
+	        
+	        JTextField endField = new JTextField();
+	        endField.setBounds(100, 20, 150, 25);
+	        add(endField);
+	      
+	        JButton submitButton = new JButton("Submit");
+	        submitButton.setBounds(100, 190, 100, 30);
+	        add(submitButton);
+	        
+        submitButton.addActionListener(e -> {
+	        	
+	            try {
+	            	
+	                String name = nameField.getText(); 
+	                
+					LocalDateTime start = LocalDateTime.parse(startField.getText());
+	                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	                
+	                LocalDateTime  end = LocalDateTime.parse(endField.getText());
+	                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	                
+	                Event event = new Event(name, start, end);
+	                EventManagement.add(event);
+	                
+	                JOptionPane.showMessageDialog(null, "Event added successfully!");
+	                dispose();
+	                
+	            } catch(DateTimeParseException ex) {
+	            	JOptionPane.showMessageDialog(null, "Invalide date format");
+	            } catch (Exception ex) {
+	                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+	            }
+	        });
+
+	        setVisible(true);
+	    }
+
+	}
