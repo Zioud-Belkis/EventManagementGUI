@@ -1,0 +1,54 @@
+package eventManagementGUI;
+
+	import java.awt.FlowLayout;
+	import java.awt.event.*;
+
+import javax.swing.*;
+
+import frame.AddEventFrame;
+import frame.DeleteEventFrame;
+import frame.SearchEventFrame;
+
+		public class EventUI extends JFrame {
+			
+		    public EventUI() {
+		    	
+		        setTitle("Event Management");
+		        setSize(300, 250);
+		        setDefaultCloseOperation(EXIT_ON_CLOSE);
+		        setLayout(null);
+		        setLocationRelativeTo(null);
+	            
+		        JButton addButton = new JButton("Add Event");
+		        addButton.setBounds(50, 20, 200, 30);
+		        add(addButton);
+		        
+		        JButton deleteButton = new JButton("Delete Event");
+		        deleteButton.setBounds(50, 60, 200, 30);
+		        add(deleteButton);
+
+		        JButton searchButton = new JButton("Search Event");
+		        searchButton.setBounds(50, 100, 200, 30);
+		        add(searchButton);
+
+		        JButton saveButton = new JButton("Save Events");
+		        saveButton.setBounds(50, 140, 200, 30);
+		        add(saveButton);
+
+		        addButton.addActionListener(e -> new AddEvents());
+		        deleteButton.addActionListener(e -> new DeleteEvents());
+		        searchButton.addActionListener(e -> new SearchEvents());
+		        saveButton.addActionListener(e -> {
+		            EventManagement.saveEvents();
+		            JOptionPane.showMessageDialog(null, "Events saved to file!");
+		        });
+
+		        setVisible(true);
+		    }
+
+		    
+		    public static void main(String[] args) {
+		        new EventUI();
+		    }
+		}
+		
