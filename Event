@@ -1,0 +1,41 @@
+package eventManagementGUI;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event {
+
+	public  String eventName;
+	public LocalDateTime startDateTime;
+	public LocalDateTime endDateTime;
+	
+	public Event(String eventName,LocalDateTime startDateTime,LocalDateTime endDateTime) {
+		
+		this.eventName = eventName;
+		this.startDateTime = startDateTime;
+		this.endDateTime = endDateTime;
+	}
+
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+
+	public String toString() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return "-.- The name of event : " + eventName + "   Start date : " + startDateTime.format(formatter) + "   End date : " + endDateTime.format(formatter);
+		
+	}
+
+}
